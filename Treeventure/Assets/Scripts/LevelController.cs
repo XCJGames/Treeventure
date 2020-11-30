@@ -46,6 +46,6 @@ public class LevelController : MonoBehaviour
 
     public void LoadFirstLevel()
     {
-        SceneManager.LoadScene("Main Intro");
+        SceneManager.LoadScene("Game Scene");
     }
 }
