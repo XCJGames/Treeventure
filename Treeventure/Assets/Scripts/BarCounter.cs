@@ -27,14 +27,14 @@ public class BarCounter : MonoBehaviour
 
     public void SetValue(int value)
     {
-        if (value <= minValue) throw new NoEcoLeftException();
+        if (value <= minValue) throw new ValueIsZeroException();
         this.value = Mathf.Clamp(value, minValue, maxValue);
         slider.value = this.value;
         tooltip.Text = tooltipText + this.value.ToString();
     }
 }
 
-public class NoEcoLeftException: System.Exception
+public class ValueIsZeroException : System.Exception
 {
-    public NoEcoLeftException() { }
+    public ValueIsZeroException() { }
 }

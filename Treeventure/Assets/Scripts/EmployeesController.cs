@@ -28,4 +28,17 @@ public class EmployeesController : MonoBehaviour
             isShowing = true;
         }
     }
+
+    public List<KeyValuePair<EmployeeStats, EmployeeStats.EmployeeActions>> GetEmployeesActions()
+    {
+        List<KeyValuePair<EmployeeStats, EmployeeStats.EmployeeActions>> list = 
+            new List<KeyValuePair<EmployeeStats, EmployeeStats.EmployeeActions>>();
+        foreach(EmployeeStats employee in employees)
+        {
+            list.Add(new KeyValuePair<EmployeeStats, 
+                EmployeeStats.EmployeeActions>(employee, employee.GetEmployeeAction()));
+        }
+
+        return list;
+    }
 }

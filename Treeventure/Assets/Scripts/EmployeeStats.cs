@@ -5,10 +5,23 @@ using System.IO;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class EmployeeStats : MonoBehaviour
 {
+    public enum EmployeeActions
+    {
+        trim,
+        trimEco,
+        weeds,
+        weedsEco,
+        pesticide,
+        pesticideEco,
+        ads,
+        adsEco
+    }
+
     [SerializeField] string employeeName;
     [SerializeField] Sprite portrait;
     [SerializeField] float baseSalary = 1000f;
@@ -24,11 +37,14 @@ public class EmployeeStats : MonoBehaviour
     private Image image;
     private ShowTooltip tooltip;
 
+    private EmployeeActions action;
+
     private void Start()
     {
         image = GetComponent<Image>();
         tooltip = GetComponent<ShowTooltip>();
         traits = new List<Trait>(numTraits);
+        action = EmployeeActions.trim;
         CreateEmployee();
         UpdateTooltipText();
     }
@@ -76,16 +92,12 @@ public class EmployeeStats : MonoBehaviour
 
     private void GenerateTraits()
     {
-        List<int> ts = new List<int>(numTraits);
+        List<Trait.Traits> ts = new List<Trait.Traits>(numTraits);
         for(int i = 0; i < numTraits; i++)
         {
-            int t = Random.Range(0, Enum.GetValues(typeof(Trait.Traits)).Length);
-            if (!ts.Contains(t))
-            {
-                ts.Add(t);
-                traits.Add(new Trait((Trait.Traits)t));
-            }
-            else i--;
+            Trait t = new Trait(ts);
+            ts.Add(t.GetTrait());
+            traits.Add(t);
         }
     }
 
@@ -106,5 +118,25 @@ public class EmployeeStats : MonoBehaviour
             }
         }
         return salary;
+    }
+
+    public EmployeeActions GetEmployeeAction()
+    {
+        return action;
+    }
+
+    public void SetEmployeeAction(TMP_Dropdown dropdown)
+    {
+        action = (EmployeeActions) dropdown.value;
+    }
+
+    public List<Trait.Traits> GetTraits()
+    {
+        List<Trait.Traits> trs = new List<Trait.Traits>();
+        foreach(Trait t in traits)
+        {
+            trs.Add(t.GetTrait());
+        }
+        return trs;
     }
 }

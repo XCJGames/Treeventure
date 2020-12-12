@@ -80,4 +80,30 @@ public class TreeStats : MonoBehaviour
         fertilizer.Text = visibility ? "Fertilizante ecológico: " + fertilizerEcoCost : "Fertilizante básico: " + fertilizerCost;
     }
 
+    public void DisableSeedButton()
+    {
+        Button seedButton = seed.GetComponent<Button>();
+        seedButton.interactable = false;
+    }
+
+    public void GrowTree()
+    {
+        treeImage.rectTransform.sizeDelta += new Vector2(10,10);
+        if (score < -10)
+        {
+            treeImage.sprite = treeSprites[0];
+        }
+        else if(score < 0)
+        {
+            treeImage.sprite = treeSprites[1];
+        }
+        else if(score < 10)
+        {
+            treeImage.sprite = treeSprites[2];
+        }
+        else
+        {
+            treeImage.sprite = treeSprites[3];
+        }
+    }
 }

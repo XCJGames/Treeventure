@@ -47,6 +47,12 @@ public class Trait
         FillParamsFromTrait(t);
     }
 
+    public Trait(List<Traits> traits)
+    {
+        Traits t = RandomlyPickTraitAvoidingConflicts(traits);
+        FillParamsFromTrait(t);
+    }
+
     public Trait(string name, string description, Traits trait, Quality quality)
     {
         this.name = name;
@@ -59,6 +65,73 @@ public class Trait
         int i = Random.Range(0, Enum.GetNames(typeof(Traits)).Length);
         return (Traits) i;
     }
+    private Traits RandomlyPickTraitAvoidingConflicts(List<Traits> traits)
+    {
+        bool ok = false;
+        Traits t = 0;
+        bool hasConflict = false;
+        while (!ok)
+        {
+            t = (Traits)Random.Range(0, Enum.GetValues(typeof(Trait.Traits)).Length);
+            hasConflict = GetConflictOfTrait(t, out Traits conflictTrait);
+            if (!traits.Contains(t))
+            {
+                if(!hasConflict || (hasConflict && !traits.Contains(conflictTrait)))
+                {
+                    ok = true;
+                }
+            }
+        }
+        return t;
+    }
+
+    private bool GetConflictOfTrait(Traits t, out Traits conflictTrait)
+    {
+        bool hasConflict = true;
+        conflictTrait = 0;
+        switch (t)
+        {
+            case Traits.butterfingers:
+                hasConflict = false;
+                break;
+            case Traits.conflictive:
+                conflictTrait = Traits.teamPlayer;
+                break;
+            case Traits.cosmopolitan:
+                conflictTrait = Traits.shy;
+                break;
+            case Traits.ecoFriendly:
+                conflictTrait = Traits.waster;
+                break;
+            case Traits.hardWorker:
+                conflictTrait = Traits.lazy;
+                break;
+            case Traits.lazy:
+                conflictTrait = Traits.hardWorker;
+                break;
+            case Traits.optimist:
+                conflictTrait = Traits.pessimist;
+                break;
+            case Traits.pessimist:
+                conflictTrait = Traits.optimist;
+                break;
+            case Traits.scary:
+                hasConflict = false;
+                break;
+            case Traits.shy:
+                conflictTrait = Traits.cosmopolitan;
+                break;
+            case Traits.teamPlayer:
+                conflictTrait = Traits.conflictive;
+                break;
+            case Traits.waster:
+                conflictTrait = Traits.ecoFriendly;
+                break;
+        }
+
+        return hasConflict;
+    }
+
     private void FillParamsFromTrait(Traits t)
     {
         this.trait = t;
