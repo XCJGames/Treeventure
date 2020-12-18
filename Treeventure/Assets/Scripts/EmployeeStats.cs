@@ -39,16 +39,52 @@ public class EmployeeStats : MonoBehaviour
 
     private EmployeeActions action;
 
-    private void Start()
+    private void Awake()
     {
         image = GetComponent<Image>();
         tooltip = GetComponent<ShowTooltip>();
         traits = new List<Trait>(numTraits);
         action = EmployeeActions.trim;
         CreateEmployee();
-        UpdateTooltipText();
+        if(tooltip != null)
+        {
+            UpdateTooltipText();
+        }
     }
 
+    public string GetEmployeeName()
+    {
+        return employeeName;
+    }
+    public Sprite GetPortrait()
+    {
+        return portrait;
+    }
+    public List<Trait> GetTraitObjects()
+    {
+        return traits;
+    }
+    public int GetNumTraits()
+    {
+        return numTraits;
+    }
+    public EmployeeActions GetAction()
+    {
+        return action;
+    }
+    public void SetEmployeeName(string employeeName)
+    {
+        this.employeeName = employeeName;
+    }
+    public void SetPortrait(Sprite portrait)
+    {
+        this.portrait = portrait;
+        image.sprite = portrait;
+    }
+    public void SetTraits(List<Trait> traits)
+    {
+        this.traits = traits;
+    }
     private void UpdateTooltipText()
     {
         tooltip.Text = employeeName + '\n';
@@ -59,13 +95,14 @@ public class EmployeeStats : MonoBehaviour
         }
     }
 
-    void CreateEmployee()
+    private void CreateEmployee()
     {
-        GenerateName();
-        ChoosePortrait();
-        GenerateTraits();
+        employeeName = GenerateName();
+        portrait = ChoosePortrait();
+        image.sprite = portrait;
+        traits = GenerateTraits();
     }
-    private void GenerateName()
+    public string GenerateName()
     {
         string[] firstNames;
         string[] lastNames;
@@ -77,28 +114,29 @@ public class EmployeeStats : MonoBehaviour
             Path.Combine(Application.dataPath,
             resourcesFoulder,
             lastNamesFile));
-        employeeName = firstNames[Random.Range(0, firstNames.Length)]
+        return firstNames[Random.Range(0, firstNames.Length)]
             + " " +
             lastNames[Random.Range(0, lastNames.Length)];
     }
 
-    private void ChoosePortrait()
+    public Sprite ChoosePortrait()
     {
-        portrait = possiblePortraits[Random.Range(0, 
+        return possiblePortraits[Random.Range(0, 
             possiblePortraits.Length)];
-        image.sprite = portrait;
     }
 
 
-    private void GenerateTraits()
+    public List<Trait> GenerateTraits()
     {
         List<Trait.Traits> ts = new List<Trait.Traits>(numTraits);
+        List<Trait> traitList = new List<Trait>(numTraits);
         for(int i = 0; i < numTraits; i++)
         {
             Trait t = new Trait(ts);
             ts.Add(t.GetTrait());
-            traits.Add(t);
+            traitList.Add(t);
         }
+        return traitList;
     }
 
 

@@ -15,6 +15,9 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField] List<TreeStats> trees;
 
+    [SerializeField] GameObject hireEmployeeWindow;
+    [SerializeField] bool cheatMode = false;
+
     private bool conflictEvent = false;
     private int conflictEventPercentage;
     private int adsEventPercentage;
@@ -31,12 +34,28 @@ public class GameSystem : MonoBehaviour
     private void HandleNextTurn()
     {
         EndTurnCalculations();
+        if (cheatMode || !gameOver)
+        {
+            if(round == 3 || round == 6)
+            {
+                HireEmployee();
+            }
+        }
+    }
+
+    private void HireEmployee()
+    {
+        var window = Instantiate(hireEmployeeWindow, transform.position, transform.rotation);
+        var canvas = GameObject.FindGameObjectWithTag("Canvas").transform;
+        window.transform.parent = canvas;
+        window.transform.position = canvas.position;
+        window.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
     }
 
     private void EndTurnCalculations()
     {
         TreeCalculations();
-        if (!gameOver)
+        if (cheatMode || !gameOver)
         {
             EmployeeCalculations();
         }
@@ -267,6 +286,6 @@ public class GameSystem : MonoBehaviour
 
     private void GameOver(bool ecoIsZero, bool moneyIsZero)
     {
-        throw new NotImplementedException();
+        Debug.Log("Game Over");
     }
 }

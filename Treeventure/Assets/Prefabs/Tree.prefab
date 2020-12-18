@@ -192,13 +192,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9c64b8fd2c305ba43baa3072bc0df6a0, type: 3}
   treeImage: {fileID: 7001685048492476392}
   score: 0
-  seedEco: 0
+  seedEco: 1
   seedEcoText: {fileID: 4923456582456798212}
   seed: {fileID: 8705732459455714479}
-  waterEco: 0
+  waterEco: 1
   waterEcoText: {fileID: 5545750572143416330}
   water: {fileID: 6851202010561517657}
-  fertilizerEco: 0
+  fertilizerEco: 1
   fertilizerEcoText: {fileID: 5075101827374332615}
   fertilizer: {fileID: 2515356193606648413}
 --- !u!1 &4923456582456798212

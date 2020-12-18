@@ -3611,7 +3611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &907252038
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3720,7 +3720,7 @@ GameObject:
   - component: {fileID: 971618891}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5675,7 +5675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1494524181
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6041,6 +6041,9 @@ MonoBehaviour:
   - {fileID: 369576896}
   - {fileID: 825779511}
   - {fileID: 302422374}
+  hireEmployeeWindow: {fileID: 8258714780303272430, guid: 7666561d1a0b01547b6759a0a96bb597,
+    type: 3}
+  cheatMode: 1
 --- !u!4 &1562374304
 Transform:
   m_ObjectHideFlags: 0
