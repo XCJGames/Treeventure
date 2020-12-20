@@ -3,19 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameSystem : MonoBehaviour
 {
     [SerializeField] int round;
+    [SerializeField] TextMeshProUGUI roundText;
 
     [SerializeField] BarCounter ecoSlider;
     [SerializeField] BarCounter moneySlider;
 
     [SerializeField] EmployeesController employees;
+    [SerializeField] GameObject hireEmployeeWindow;
+
+    [SerializeField] EventController eventController;
 
     [SerializeField] List<TreeStats> trees;
 
-    [SerializeField] GameObject hireEmployeeWindow;
     [SerializeField] bool cheatMode = false;
 
     private bool conflictEvent = false;
@@ -25,6 +29,11 @@ public class GameSystem : MonoBehaviour
     private int rerollPlagueEvent;
 
     private bool gameOver = false;
+
+    private void Start()
+    {
+        roundText.text = round.ToString();
+    }
 
     public void NextTurn()
     {
@@ -36,6 +45,7 @@ public class GameSystem : MonoBehaviour
         EndTurnCalculations();
         if (cheatMode || !gameOver)
         {
+            EndTurnEvent();
             if(round == 3 || round == 6)
             {
                 HireEmployee();
@@ -43,11 +53,19 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    private void EndTurnEvent()
+    {
+        eventController.ShowWindow();
+        eventController.NewEvent(rerollPlagueEvent, adsEventPercentage, 
+            employees.GetNumEmployees(), conflictEventPercentage, brokenMaterialsPercentage, 
+            moneySlider.GetValue(), ecoSlider.GetValue());
+    }
+
     private void HireEmployee()
     {
         var window = Instantiate(hireEmployeeWindow, transform.position, transform.rotation);
         var canvas = GameObject.FindGameObjectWithTag("Canvas").transform;
-        window.transform.parent = canvas;
+        window.transform.SetParent(canvas, false);
         window.transform.position = canvas.position;
         window.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
     }
@@ -60,6 +78,7 @@ public class GameSystem : MonoBehaviour
             EmployeeCalculations();
         }
         round++;
+        roundText.text = round.ToString();
     }
 
     private void EmployeeCalculations()

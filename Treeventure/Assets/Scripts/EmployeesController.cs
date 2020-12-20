@@ -29,7 +29,15 @@ public class EmployeesController : MonoBehaviour
             isShowing = true;
         }
     }
-
+    public int GetNumEmployees()
+    {
+        int numEmployees = 0;
+        foreach(EmployeeStats employee in employees)
+        {
+            if (employee.gameObject.activeSelf) numEmployees++;
+        }
+        return numEmployees;
+    }
     public List<KeyValuePair<EmployeeStats, EmployeeStats.EmployeeActions>> GetEmployeesActions()
     {
         List<KeyValuePair<EmployeeStats, EmployeeStats.EmployeeActions>> list = 
