@@ -18,11 +18,13 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField] EventController eventController;
 
+    [SerializeField] Image winWindow;
+    [SerializeField] TextMeshProUGUI scoreText;
+
     [SerializeField] List<TreeStats> trees;
 
     [SerializeField] bool cheatMode = false;
 
-    private bool conflictEvent = false;
     private int conflictEventPercentage;
     private int adsEventPercentage;
     private int brokenMaterialsPercentage;
@@ -33,6 +35,10 @@ public class GameSystem : MonoBehaviour
     private void Start()
     {
         roundText.text = round.ToString();
+        conflictEventPercentage = 0;
+        adsEventPercentage = 0;
+        brokenMaterialsPercentage = 0;
+        rerollPlagueEvent = 0;
     }
 
     public void NextTurn()
@@ -43,14 +49,45 @@ public class GameSystem : MonoBehaviour
     private void HandleNextTurn()
     {
         EndTurnCalculations();
+        employees.SetAbsentEmployeesAsNotAbsent();
         if (cheatMode || !gameOver)
         {
-            EndTurnEvent();
-            if(round == 3 || round == 6)
+            if(round > 12)
             {
-                HireEmployee();
+                Win();
+            }
+            else
+            {
+                EndTurnEvent();
+                if(round == 3 || round == 6)
+                {
+                    HireEmployee();
+                }
             }
         }
+    }
+
+    private void Win()
+    {
+        scoreText.text = GetScore().ToString();
+        foreach(Button b in FindObjectsOfType<Button>())
+        {
+            b.interactable = false;
+        }
+        winWindow.GetComponentInChildren<Button>().interactable = true;
+        winWindow.GetComponent<Animator>().SetTrigger("Down");
+    }
+
+    private int GetScore()
+    {
+        int score = 0;
+        foreach(TreeStats tree in trees)
+        {
+            score += tree.Score;
+        }
+        score += moneySlider.GetValue();
+        score += ecoSlider.GetValue() * 3;
+        return score;
     }
 
     private void EndTurnEvent()
@@ -59,6 +96,45 @@ public class GameSystem : MonoBehaviour
         eventController.NewEvent(rerollPlagueEvent, adsEventPercentage, 
             employees.GetNumEmployees(), conflictEventPercentage, brokenMaterialsPercentage, 
             moneySlider.GetValue(), ecoSlider.GetValue());
+    }
+
+    public void EventCalculations(List<KeyValuePair<string,int>> eventEffects)
+    {
+        foreach(KeyValuePair<string, int> effect in eventEffects)
+        {
+            switch (effect.Key)
+            {
+                case "eco":
+                    ecoSlider.SetValue(ecoSlider.GetValue() + effect.Value);
+                    break;
+                case "money":
+                    moneySlider.SetValue(moneySlider.GetValue() + effect.Value);
+                    break;
+                case "treeScore":
+                    foreach(TreeStats tree in trees)
+                    {
+                        tree.Score += effect.Value;
+                    }
+                    break;
+                case "employeesSalary":
+                    employees.BaseSalaryChange(effect.Value);
+                    break;
+                case "employeesExtraPayment":
+                    int payment = 0;
+                    for(int i = 1; i < employees.GetNumEmployees(); i++)
+                    {
+                        payment += employees.GetSalaryOfEmployee(i);
+                    }
+                    moneySlider.SetValue(moneySlider.GetValue() - payment);
+                    break;
+                case "firedEmployee":
+                    employees.FireEmployee(effect.Value);
+                    break;
+                case "absentEmployee":
+                    employees.SetRandomEmployeeAsAbsent();
+                    break;
+            }
+        }
     }
 
     private void HireEmployee()
@@ -72,22 +148,22 @@ public class GameSystem : MonoBehaviour
 
     private void EndTurnCalculations()
     {
-        TreeCalculations();
-        if (cheatMode || !gameOver)
-        {
-            EmployeeCalculations();
-        }
+        int ecoModifier = 0;
+        int moneyModifier = 0;
+        TreeCalculations(ref ecoModifier, ref moneyModifier);
+        EmployeeCalculations(ref ecoModifier, ref moneyModifier);
+        TreeGrowth();
+        ChangeMainValues(ecoModifier, moneyModifier);
         round++;
         roundText.text = round.ToString();
     }
 
-    private void EmployeeCalculations()
+    public void EmployeeCalculations(ref int ecoModifier, ref int moneyModifier)
     {
+        Debug.Log("employee calculations");
         List<KeyValuePair<EmployeeStats, EmployeeStats.EmployeeActions>> list = 
             employees.GetEmployeesActions();
-        int ecoModifier = 0;
-        int moneyModifier = 0;
-        conflictEventPercentage = 10;
+        conflictEventPercentage = 0;
         adsEventPercentage = 0;
         brokenMaterialsPercentage = 0;
         rerollPlagueEvent = 0;
@@ -124,22 +200,20 @@ public class GameSystem : MonoBehaviour
 
             TraitsCalculations(ref ecoModifier, ref moneyModifier, traits);
         }
-
-        ChangeMainValues(ecoModifier, moneyModifier);
     }
 
     private void TraitsCalculations(ref int ecoModifier, ref int moneyModifier, List<Trait.Traits> traits)
     {
-        if (!conflictEvent)
+
+        if (traits.Contains(Trait.Traits.teamPlayer))
         {
-            if (traits.Contains(Trait.Traits.teamPlayer))
-            {
-                conflictEventPercentage = 0;
-            }
-            else if(traits.Contains(Trait.Traits.conflictive) && conflictEventPercentage != 0)
-            {
-                conflictEventPercentage += 25;
-            }
+            Debug.Log("team player");
+            conflictEventPercentage = -1;
+        }
+        else if(traits.Contains(Trait.Traits.conflictive) && conflictEventPercentage != -1)
+        {
+            Debug.Log("conflict emp");
+            conflictEventPercentage += 25;
         }
         if (traits.Contains(Trait.Traits.ecoFriendly))
         {
@@ -232,28 +306,22 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    private void TreeCalculations()
+    public void TreeCalculations(ref int ecoModifier, ref int moneyModifier)
     {
-        int ecoModifier = 0;
-        int moneyModifier = 0;
         foreach (TreeStats tree in trees)
         {
             if (tree.SeedEco)
             {
-                tree.Score++;
                 if (round == 1)
                 {
-                    tree.DisableSeedButton();
                     moneyModifier -= 150;
                     ecoModifier++;
                 }
             }
             else
             {
-                tree.Score--;
                 if (round == 1)
                 {
-                    tree.DisableSeedButton();
                     moneyModifier -= 90;
                     ecoModifier--;
                 }
@@ -261,50 +329,82 @@ public class GameSystem : MonoBehaviour
 
             if (tree.WaterEco)
             {
-                tree.Score++;
                 moneyModifier -= 250;
                 ecoModifier++;
             }
             else
             {
-                tree.Score--;
                 moneyModifier -= 100;
                 ecoModifier--;
             }
 
             if (tree.FertilizerEco)
             {
-                tree.Score++;
                 moneyModifier -= 300;
                 ecoModifier++;
             }
             else
             {
-                tree.Score--;
                 moneyModifier -= 160;
                 ecoModifier--;
             }
+        }
+    }
+
+    private void TreeGrowth()
+    {
+        foreach (TreeStats tree in trees)
+        {
+            if (tree.SeedEco)
+            {
+                if (round == 1)
+                {
+                    tree.Score += 5;
+                    tree.DisableSeedButton();
+                }
+            }
+            else
+            {
+                if (round == 1)
+                {
+                    tree.Score -= 5;
+                    tree.DisableSeedButton();
+                }
+            }
+
+            if (tree.WaterEco)
+            {
+                tree.Score++;
+            }
+            else
+            {
+                tree.Score--;
+            }
+
+            if (tree.FertilizerEco)
+            {
+                tree.Score++;
+            }
+            else
+            {
+                tree.Score--;
+            }
             tree.GrowTree();
         }
-
-        ChangeMainValues(ecoModifier, moneyModifier);
     }
-
     private void ChangeMainValues(int ecoModifier, int moneyModifier)
     {
-        try
+        ecoSlider.SetValue(ecoSlider.GetValue() + ecoModifier);
+        moneySlider.SetValue(moneySlider.GetValue() + moneyModifier);
+        if(ecoSlider.GetValue() == 0 || moneySlider.GetValue() == 0)
         {
-            ecoSlider.SetValue(ecoSlider.GetValue() + ecoModifier);
-            moneySlider.SetValue(moneySlider.GetValue() + moneyModifier);
-        }
-        catch (ValueIsZeroException e)
-        {
-            GameOver(ecoSlider.GetValue() == 0 ? true : false, moneySlider.GetValue() == 0 ? true : false);
+            gameOver = true;
+            GameOver();
         }
     }
 
-    private void GameOver(bool ecoIsZero, bool moneyIsZero)
+    private void GameOver()
     {
-        Debug.Log("Game Over");
+        FindObjectOfType<LevelController>().LoadGameOver();
     }
 }

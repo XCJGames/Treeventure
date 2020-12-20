@@ -144,7 +144,7 @@ public class EventController : MonoBehaviour
         {
             SetEventData("¡Tu pericia ha surtido efecto!",
                 "Otro comercio ha visto tu publicidad y va a invertir en tu negocio.",
-                new string[] { "¡Genial! Consigues 5.000 €" });
+                new string[] { "¡Genial! Consigues 2.500 €" });
         }
         else if(e <= 17)
         {
@@ -224,6 +224,8 @@ public class EventController : MonoBehaviour
     private int GetRandomEvent(int plagueRerolls, int adsEventPercentage, int numEmployees,
         int employeeConflictRisk, int brokenToolsEventRisk, int money, int eco)
     {
+        Debug.Log("rerolls: " + plagueRerolls + " ads: " + adsEventPercentage + " numEmp: " + numEmployees + " conflict: " +
+            employeeConflictRisk + " broken: " + brokenToolsEventRisk + " money: " + money + " eco: " + eco);
         List<int> events = new List<int>();
         if(money <= 6000 && !lowMoneyEvent)
         {
@@ -308,6 +310,190 @@ public class EventController : MonoBehaviour
     public void ChooseOption(int option)
     {
         Debug.Log("option: " + option);
+        GameSystem gameSystem = FindObjectOfType<GameSystem>();
+        List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
+        if (currentEvent <= 8)
+        {
+            switch ((GeneralEvents)currentEvent)
+            {
+                case GeneralEvents.drought:
+                    switch (option)
+                    {
+                        case 0:
+                            effects.Add(new KeyValuePair<string, int>("eco", 5));
+                            break;
+                        case 1:
+                            effects.Add(new KeyValuePair<string, int>("eco", 2));
+                            effects.Add(new KeyValuePair<string, int>("treeScore", -2));
+                            break;
+                        case 2:
+                            effects.Add(new KeyValuePair<string, int>("eco", -5));
+                            effects.Add(new KeyValuePair<string, int>("money", -500));
+                            break;
+                    }
+                    break;
+                case GeneralEvents.racoonAttack:
+                    switch (option)
+                    {
+                        case 0:
+                            effects.Add(new KeyValuePair<string, int>("eco", -10));
+                            effects.Add(new KeyValuePair<string, int>("money", -500));
+                            break;
+                        case 1:
+                            effects.Add(new KeyValuePair<string, int>("eco", -5));
+                            effects.Add(new KeyValuePair<string, int>("money", -1000));
+                            break;
+                        case 2:
+                            effects.Add(new KeyValuePair<string, int>("eco", 10));
+                            effects.Add(new KeyValuePair<string, int>("money", -2000));
+                            break;
+                    }
+                    break;
+                case GeneralEvents.taylorNeedsBraces:
+                    effects.Add(new KeyValuePair<string, int>("money", -1000));
+                    break;
+                case GeneralEvents.bankCyberattacked:
+                    effects.Add(new KeyValuePair<string, int>("money", -1500));
+                    break;
+                case GeneralEvents.houseRepairs:
+                    effects.Add(new KeyValuePair<string, int>("money", -500));
+                    break;
+                case GeneralEvents.deluge:
+                    switch (option)
+                    {
+                        case 0:
+                            effects.Add(new KeyValuePair<string, int>("eco", -10));
+                            effects.Add(new KeyValuePair<string, int>("money", -500));
+                            break;
+                        case 1:
+                            effects.Add(new KeyValuePair<string, int>("eco", -5));
+                            effects.Add(new KeyValuePair<string, int>("money", -1000));
+                            break;
+                        case 2:
+                            effects.Add(new KeyValuePair<string, int>("eco", 5));
+                            effects.Add(new KeyValuePair<string, int>("money", -1500));
+                            break;
+                    }
+                    break;
+                case GeneralEvents.fires:
+                    switch (option)
+                    {
+                        case 0:
+                            effects.Add(new KeyValuePair<string, int>("eco", -5));
+                            effects.Add(new KeyValuePair<string, int>("money", -1000));
+                            break;
+                        case 1:
+                            effects.Add(new KeyValuePair<string, int>("eco", -10));
+                            effects.Add(new KeyValuePair<string, int>("money", -500));
+                            break;
+                        case 2:
+                            effects.Add(new KeyValuePair<string, int>("money", -1500));
+                            break;
+                    }
+                    break;
+                case GeneralEvents.townParty:
+                case GeneralEvents.tornado:
+                    switch (option)
+                    {
+                        case 0:
+                            effects.Add(new KeyValuePair<string, int>("eco", -10));
+                            effects.Add(new KeyValuePair<string, int>("money", -1500));
+                            break;
+                        case 1:
+                            effects.Add(new KeyValuePair<string, int>("eco", -5));
+                            effects.Add(new KeyValuePair<string, int>("money", -1000));
+                            break;
+                        case 2:
+                            effects.Add(new KeyValuePair<string, int>("eco", 5));
+                            effects.Add(new KeyValuePair<string, int>("money", -500));
+                            break;
+                    }
+                    break;
+            }
+        }
+        else if (currentEvent <= 11)
+        {
+            switch ((PlagueEvents)currentEvent)
+            {
+                case PlagueEvents.insectPlague:
+                case PlagueEvents.mantisPlague:
+                case PlagueEvents.scarabPlague:
+                    switch (option)
+                    {
+                        case 0:
+                            effects.Add(new KeyValuePair<string, int>("eco", -10));
+                            effects.Add(new KeyValuePair<string, int>("money", -500));
+                            break;
+                        case 1:
+                            effects.Add(new KeyValuePair<string, int>("eco", -5));
+                            effects.Add(new KeyValuePair<string, int>("money", -1000));
+                            break;
+                        case 2:
+                            effects.Add(new KeyValuePair<string, int>("eco", 5));
+                            effects.Add(new KeyValuePair<string, int>("money", -1500));
+                            break;
+                    }
+                    break;
+            }
+        }
+        else if (currentEvent == 12)
+        {
+            effects.Add(new KeyValuePair<string, int>("money", 2500));
+        }
+        else if (currentEvent <= 17)
+        {
+            switch ((EmployeeEvents)currentEvent)
+            {
+                case EmployeeEvents.employeesClaimPayrise:
+                    effects.Add(new KeyValuePair<string, int>("employeesExtraPayment", 10));
+                    break;
+                case EmployeeEvents.babyIncoming:
+                case EmployeeEvents.sickEmployee:
+                    effects.Add(new KeyValuePair<string, int>("absentEmployee", 0));
+                    break;
+                case EmployeeEvents.brokenTools:
+                    effects.Add(new KeyValuePair<string, int>("eco", -5));
+                    effects.Add(new KeyValuePair<string, int>("money", -500));
+                    break;
+                case EmployeeEvents.employeesConflict:
+                    switch (option)
+                    {
+                        case 0:
+                            effects.Add(new KeyValuePair<string, int>("employeesExtraPayment", 0));
+                            break;
+                        case 1:
+                            effects.Add(new KeyValuePair<string, int>("firedEmployee", 1));
+                            break;
+                        case 2:
+                            effects.Add(new KeyValuePair<string, int>("firedEmployee", 0));
+                            break;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            switch ((LowResourceEvents)currentEvent)
+            {
+                case LowResourceEvents.lowMoneyLoan:
+                    lowMoneyEvent = true;
+                    effects.Add(new KeyValuePair<string, int>("money", 10000));
+                    break;
+                case LowResourceEvents.lowMoneyLottery:
+                    lowMoneyEvent = true;
+                    effects.Add(new KeyValuePair<string, int>("money", 10000));
+                    break;
+                case LowResourceEvents.lowEcoONG:
+                    lowEcoEvent = true;
+                    effects.Add(new KeyValuePair<string, int>("money", -500));
+                    effects.Add(new KeyValuePair<string, int>("eco", 20));
+                    break;
+                case LowResourceEvents.lowEcoDog:
+                    effects.Add(new KeyValuePair<string, int>("eco", 20));
+                    break;
+            }
+        }
+        gameSystem.EventCalculations(effects);
         gameObject.SetActive(false);
     }
 }

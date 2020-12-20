@@ -27,6 +27,7 @@ public class EmployeeStats : MonoBehaviour
     [SerializeField] float baseSalary = 1000f;
     [SerializeField] List<Trait> traits;
     [SerializeField] int numTraits = 3;
+    [SerializeField] List<Trait.Traits> blockedTraits;
 
     [SerializeField] Sprite[] possiblePortraits;
 
@@ -39,12 +40,15 @@ public class EmployeeStats : MonoBehaviour
 
     private EmployeeActions action;
 
+    private bool isAbsent;
+
     private void Awake()
     {
         image = GetComponent<Image>();
         tooltip = GetComponent<ShowTooltip>();
         traits = new List<Trait>(numTraits);
         action = EmployeeActions.trim;
+        isAbsent = false;
         CreateEmployee();
         if(tooltip != null)
         {
@@ -64,6 +68,12 @@ public class EmployeeStats : MonoBehaviour
     {
         return traits;
     }
+
+    internal bool IsAbsent()
+    {
+        return isAbsent;
+    }
+
     public int GetNumTraits()
     {
         return numTraits;
@@ -75,15 +85,18 @@ public class EmployeeStats : MonoBehaviour
     public void SetEmployeeName(string employeeName)
     {
         this.employeeName = employeeName;
+        UpdateTooltipText();
     }
     public void SetPortrait(Sprite portrait)
     {
         this.portrait = portrait;
         image.sprite = portrait;
+        UpdateTooltipText();
     }
     public void SetTraits(List<Trait> traits)
     {
         this.traits = traits;
+        UpdateTooltipText();
     }
     private void UpdateTooltipText()
     {
@@ -94,7 +107,10 @@ public class EmployeeStats : MonoBehaviour
             tooltip.Text += '\n' + t.GetName();
         }
     }
-
+    public void SetBaseSalary(float salary)
+    {
+        baseSalary = salary;
+    }
     private void CreateEmployee()
     {
         employeeName = GenerateName();
@@ -133,13 +149,27 @@ public class EmployeeStats : MonoBehaviour
         for(int i = 0; i < numTraits; i++)
         {
             Trait t = new Trait(ts);
-            ts.Add(t.GetTrait());
-            traitList.Add(t);
+            if (blockedTraits.Contains(t.GetTrait())){
+                i--;
+            }
+            else
+            {
+                ts.Add(t.GetTrait());
+                traitList.Add(t);
+            }
         }
         return traitList;
     }
 
+    internal void SetAbsent(bool isAbsent)
+    {
+        this.isAbsent = isAbsent;
+    }
 
+    public float GetBaseSalary()
+    {
+        return baseSalary;
+    }
     public float GetSalary()
     {
         float salary = baseSalary;
@@ -166,6 +196,7 @@ public class EmployeeStats : MonoBehaviour
     public void SetEmployeeAction(TMP_Dropdown dropdown)
     {
         action = (EmployeeActions) dropdown.value;
+        UpdateTooltipText();
     }
 
     public List<Trait.Traits> GetTraits()

@@ -48,4 +48,9 @@ public class LevelController : MonoBehaviour
     {
         SceneManager.LoadScene("Game Scene");
     }
+
+    public void LoadGameOver()
+    {
+        SceneManager.LoadScene("Game Over");
+    }
 }
