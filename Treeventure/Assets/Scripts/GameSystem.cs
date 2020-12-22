@@ -160,7 +160,6 @@ public class GameSystem : MonoBehaviour
 
     public void EmployeeCalculations(ref int ecoModifier, ref int moneyModifier)
     {
-        Debug.Log("employee calculations");
         List<KeyValuePair<EmployeeStats, EmployeeStats.EmployeeActions>> list = 
             employees.GetEmployeesActions();
         conflictEventPercentage = 0;
@@ -199,6 +198,7 @@ public class GameSystem : MonoBehaviour
             }
 
             TraitsCalculations(ref ecoModifier, ref moneyModifier, traits);
+            moneyModifier -= (int)pair.Key.GetSalary();
         }
     }
 
@@ -231,8 +231,8 @@ public class GameSystem : MonoBehaviour
 
     private void TrimWeedCalculations(ref int ecoModifier, ref int moneyModifier, List<Trait.Traits> traits, bool eco)
     {
-        ecoModifier -= eco ? 10 : -5;
-        moneyModifier -= eco ? -150 : -50;
+        ecoModifier += eco ? 10 : -5;
+        moneyModifier += eco ? -150 : -50;
         if (traits.Contains(Trait.Traits.shy))
         {
             ecoModifier += 3;
@@ -254,8 +254,8 @@ public class GameSystem : MonoBehaviour
 
     private void PesticidesCalculations(ref int ecoModifier, ref int moneyModifier, List<Trait.Traits> traits, bool eco)
     {
-        ecoModifier -= eco ? -5 : -10;
-        moneyModifier -= eco ? -200 : -100;
+        ecoModifier += eco ? -5 : -10;
+        moneyModifier += eco ? -200 : -100;
         rerollPlagueEvent++;
         if (traits.Contains(Trait.Traits.shy))
         {
@@ -278,8 +278,10 @@ public class GameSystem : MonoBehaviour
 
     private void AdsCalculations(ref int ecoModifier, ref int moneyModifier, List<Trait.Traits> traits, bool eco)
     {
-        ecoModifier -=  eco ? -5 : -10;
-        moneyModifier -= eco ? -200 : -100;
+        Debug.Log(ecoModifier);
+        ecoModifier +=  eco ? -5 : -10;
+        Debug.Log(ecoModifier);
+        moneyModifier += eco ? -200 : -100;
         adsEventPercentage += 20;
 
         if (traits.Contains(Trait.Traits.cosmopolitan))

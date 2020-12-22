@@ -56,7 +56,7 @@ public class BarCounter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             gameSystem.EmployeeCalculations(ref aux, ref modifier);
             gameSystem.TreeCalculations(ref aux, ref modifier);
         }
-        text += "Fin de turno: " + (value + modifier);
+        text += "Fin de turno: " + (Mathf.Clamp(value + modifier, minValue, maxValue));
         tooltip.Text = text;
     }
 

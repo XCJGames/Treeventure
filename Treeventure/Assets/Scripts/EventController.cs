@@ -309,7 +309,6 @@ public class EventController : MonoBehaviour
 
     public void ChooseOption(int option)
     {
-        Debug.Log("option: " + option);
         GameSystem gameSystem = FindObjectOfType<GameSystem>();
         List<KeyValuePair<string, int>> effects = new List<KeyValuePair<string, int>>();
         if (currentEvent <= 8)

@@ -128,7 +128,6 @@ public class EmployeesController : MonoBehaviour
     internal void SetRandomEmployeeAsAbsent()
     {
         int i = Random.Range(1, GetNumEmployees());
-        Debug.Log("absent employee: " + i);
         employees[i].SetAbsent(true);
         employees[i].GetComponentInChildren<TMP_Dropdown>().interactable = false;
     }

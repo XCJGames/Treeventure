@@ -12,14 +12,14 @@ public class EmployeeStats : MonoBehaviour
 {
     public enum EmployeeActions
     {
-        trim,
         trimEco,
-        weeds,
+        trim,
         weedsEco,
-        pesticide,
+        weeds,
         pesticideEco,
-        ads,
-        adsEco
+        pesticide,
+        adsEco,
+        ads
     }
 
     [SerializeField] string employeeName;
@@ -47,7 +47,7 @@ public class EmployeeStats : MonoBehaviour
         image = GetComponent<Image>();
         tooltip = GetComponent<ShowTooltip>();
         traits = new List<Trait>(numTraits);
-        action = EmployeeActions.trim;
+        action = (EmployeeActions) 0;
         isAbsent = false;
         CreateEmployee();
         if(tooltip != null)
