@@ -25,6 +25,9 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField] bool cheatMode = false;
 
+    [SerializeField] AudioClip winSound;
+    [SerializeField] AudioClip eventSound;
+
     private int conflictEventPercentage;
     private int adsEventPercentage;
     private int brokenMaterialsPercentage;
@@ -67,17 +70,6 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    private void Win()
-    {
-        scoreText.text = GetScore().ToString();
-        foreach(Button b in FindObjectsOfType<Button>())
-        {
-            b.interactable = false;
-        }
-        winWindow.GetComponentInChildren<Button>().interactable = true;
-        winWindow.GetComponent<Animator>().SetTrigger("Down");
-    }
-
     private int GetScore()
     {
         int score = 0;
@@ -93,6 +85,10 @@ public class GameSystem : MonoBehaviour
     private void EndTurnEvent()
     {
         eventController.ShowWindow();
+        AudioSource.PlayClipAtPoint(
+            eventSound,
+            Camera.main.transform.position,
+            PlayerPrefsController.GetMasterVolume());
         eventController.NewEvent(rerollPlagueEvent, adsEventPercentage, 
             employees.GetNumEmployees(), conflictEventPercentage, brokenMaterialsPercentage, 
             moneySlider.GetValue(), ecoSlider.GetValue());
@@ -404,7 +400,20 @@ public class GameSystem : MonoBehaviour
             GameOver();
         }
     }
-
+    private void Win()
+    {
+        AudioSource.PlayClipAtPoint(
+            winSound,
+            Camera.main.transform.position,
+            PlayerPrefsController.GetMasterVolume());
+        scoreText.text = GetScore().ToString();
+        foreach (Button b in FindObjectsOfType<Button>())
+        {
+            b.interactable = false;
+        }
+        winWindow.GetComponentInChildren<Button>().interactable = true;
+        winWindow.GetComponent<Animator>().SetTrigger("Down");
+    }
     private void GameOver()
     {
         FindObjectOfType<LevelController>().LoadGameOver();

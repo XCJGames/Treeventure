@@ -144,7 +144,7 @@ public class EventController : MonoBehaviour
         {
             SetEventData("¡Tu pericia ha surtido efecto!",
                 "Otro comercio ha visto tu publicidad y va a invertir en tu negocio.",
-                new string[] { "¡Genial! Consigues 2.500 €" });
+                new string[] { "¡Genial! Consigues 3.000 €" });
         }
         else if(e <= 17)
         {
@@ -437,7 +437,7 @@ public class EventController : MonoBehaviour
         }
         else if (currentEvent == 12)
         {
-            effects.Add(new KeyValuePair<string, int>("money", 2500));
+            effects.Add(new KeyValuePair<string, int>("money", 3000));
         }
         else if (currentEvent <= 17)
         {

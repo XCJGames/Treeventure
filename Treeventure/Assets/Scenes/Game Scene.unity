@@ -2873,9 +2873,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 60000
+  m_MaxValue: 100000
   m_WholeNumbers: 1
-  m_Value: 60000
+  m_Value: 100000
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2908,8 +2908,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f50af6034914d94c9ea5ab906ef1304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 70000
-  maxValue: 70000
+  value: 100000
+  maxValue: 100000
   minValue: 0
   tooltipText: 'Dinero: '
   type: 1
@@ -2993,6 +2993,50 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2129609115}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &458220283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 458220285}
+  - component: {fileID: 458220284}
+  m_Layer: 0
+  m_Name: ButtonSound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &458220284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458220283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabdc02ce4c15a243aefd1a8b13ebef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 5d64bf83ff9804c44b6d94c847f3abcc, type: 3}
+--- !u!4 &458220285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458220283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &466204734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7830,6 +7874,8 @@ MonoBehaviour:
   - {fileID: 825779511}
   - {fileID: 302422374}
   cheatMode: 0
+  winSound: {fileID: 8300000, guid: ef190fae7d25cf443b660ab049e08646, type: 3}
+  eventSound: {fileID: 8300000, guid: c527ba4803f69f849bbd3928894674bc, type: 3}
 --- !u!4 &1562374304
 Transform:
   m_ObjectHideFlags: 0
@@ -9956,6 +10002,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1562374303}
         m_MethodName: NextTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 458220284}
+        m_MethodName: PlayClip
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -184,7 +184,7 @@ public class Trait
                 break;
             case Traits.shy:
                 this.name = "Tímido";
-                this.description = "Prefiere trabajar en el campo a sentarse contigo en el desayuno";
+                this.description = "Prefiere trabajar en el campo a socializar y hacer equipo";
                 this.quality = Quality.normal;
                 break;
             case Traits.teamPlayer:

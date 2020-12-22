@@ -23,7 +23,7 @@ public class TreeStats : MonoBehaviour
     [SerializeField] private GameObject seedEcoText;
     [SerializeField] private ShowTooltip seed;
     [SerializeField] private const int seedCost = 90;
-    [SerializeField] private const int seedEcoCost = 150;
+    [SerializeField] private const int seedEcoCost = 200;
 
     [Header("Water")]
     [SerializeField] private bool waterEco;
@@ -36,8 +36,8 @@ public class TreeStats : MonoBehaviour
     [SerializeField] private bool fertilizerEco;
     [SerializeField] private GameObject fertilizerEcoText;
     [SerializeField] private ShowTooltip fertilizer;
-    [SerializeField] private const int fertilizerCost = 160;
-    [SerializeField] private const int fertilizerEcoCost = 300;
+    [SerializeField] private const int fertilizerCost = 100;
+    [SerializeField] private const int fertilizerEcoCost = 250;
 
 
     void Start()

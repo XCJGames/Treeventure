@@ -513,6 +513,7 @@ GameObject:
   - component: {fileID: 7001685049324438552}
   - component: {fileID: 7001685049324438555}
   - component: {fileID: 6851202010561517657}
+  - component: {fileID: 824416264451687072}
   m_Layer: 5
   m_Name: Water Button
   m_TagString: Untagged
@@ -631,6 +632,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 824416264451687072}
+        m_MethodName: PlayClip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6851202010561517657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +660,19 @@ MonoBehaviour:
     type: 3}
   text: Agua
   tooltipPosition: {x: 0, y: 0}
+--- !u!114 &824416264451687072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7001685049324438549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabdc02ce4c15a243aefd1a8b13ebef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 5d64bf83ff9804c44b6d94c847f3abcc, type: 3}
 --- !u!1 &7001685050313092643
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +686,7 @@ GameObject:
   - component: {fileID: 7001685050313092646}
   - component: {fileID: 7001685050313092641}
   - component: {fileID: 2515356193606648413}
+  - component: {fileID: 7715625603391333892}
   m_Layer: 5
   m_Name: Fertilizer Button
   m_TagString: Untagged
@@ -779,6 +805,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7715625603391333892}
+        m_MethodName: PlayClip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2515356193606648413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,6 +833,19 @@ MonoBehaviour:
     type: 3}
   text: Fertilizante
   tooltipPosition: {x: 0, y: 0}
+--- !u!114 &7715625603391333892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7001685050313092643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabdc02ce4c15a243aefd1a8b13ebef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 5d64bf83ff9804c44b6d94c847f3abcc, type: 3}
 --- !u!1 &7001685050576807647
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +859,7 @@ GameObject:
   - component: {fileID: 7001685050576807618}
   - component: {fileID: 7001685050576807645}
   - component: {fileID: 8705732459455714479}
+  - component: {fileID: 2009074786135963940}
   m_Layer: 5
   m_Name: Seed Button
   m_TagString: Untagged
@@ -927,6 +978,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2009074786135963940}
+        m_MethodName: PlayClip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8705732459455714479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,6 +1006,19 @@ MonoBehaviour:
     type: 3}
   text: Semilla
   tooltipPosition: {x: 0, y: 0}
+--- !u!114 &2009074786135963940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7001685050576807647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cabdc02ce4c15a243aefd1a8b13ebef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 5d64bf83ff9804c44b6d94c847f3abcc, type: 3}
 --- !u!1 &7287791615243174559
 GameObject:
   m_ObjectHideFlags: 0

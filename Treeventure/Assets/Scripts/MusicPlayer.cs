@@ -6,22 +6,10 @@ using UnityEngine.Audio;
 public class MusicPlayer : MonoBehaviour
 {
     [SerializeField] AudioClip mainTheme;
-    [SerializeField] AudioClip mainIntro;
-    [SerializeField] AudioClip level1Intro;
-    [SerializeField] AudioClip combatTheme;
-    [SerializeField] AudioClip duelTheme;
-    [SerializeField] AudioClip loseTheme;
-    [SerializeField] AudioClip winTheme;
 
     public enum Theme
     {
-        mainTheme,
-        mainIntro,
-        level1Intro,
-        combatTheme,
-        duelTheme,
-        loseTheme,
-        winTheme
+        mainTheme
     }
 
     private Theme currentTheme;
@@ -74,31 +62,22 @@ public class MusicPlayer : MonoBehaviour
                 audioSource.clip = mainTheme;
                 currentTheme = Theme.mainTheme;
                 break;
-            case Theme.mainIntro:
-                audioSource.clip = mainIntro;
-                currentTheme = Theme.mainIntro;
-                break;
-            case Theme.combatTheme:
-                audioSource.clip = combatTheme;
-                currentTheme = Theme.combatTheme;
-                break;
-            case Theme.duelTheme:
-                audioSource.clip = duelTheme;
-                currentTheme = Theme.duelTheme;
-                break;
-            case Theme.winTheme:
-                audioSource.clip = winTheme;
-                currentTheme = Theme.winTheme;
-                break;
-            case Theme.loseTheme:
-                audioSource.clip = loseTheme;
-                currentTheme = Theme.loseTheme;
-                break;
-            case Theme.level1Intro:
-                audioSource.clip = level1Intro;
-                currentTheme = Theme.level1Intro;
-                break;
         }
         audioSource.Play();
+    }
+
+    public void Play()
+    {
+        audioSource.Play();
+    }
+
+    public void Stop()
+    {
+        audioSource.Stop();
+    }
+
+    public bool IsPlaying()
+    {
+        return audioSource.isPlaying;
     }
 }

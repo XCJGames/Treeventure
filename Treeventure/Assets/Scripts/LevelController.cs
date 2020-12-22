@@ -18,9 +18,10 @@ public class LevelController : MonoBehaviour
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(0);
-        if(FindObjectOfType<MusicPlayer>().CurrentTheme != MusicPlayer.Theme.mainTheme)
+        MusicPlayer musicPlayer = FindObjectOfType<MusicPlayer>();
+        if (!musicPlayer.IsPlaying())
         {
-            FindObjectOfType<MusicPlayer>().PlayTheme(MusicPlayer.Theme.mainTheme);
+            musicPlayer.Play();
         }
     }
 
@@ -44,13 +45,21 @@ public class LevelController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void LoadIntroLevel()
+    {
+        FindObjectOfType<MusicPlayer>().Stop();
+        SceneManager.LoadScene("Intro Scene");
+    }
+
     public void LoadFirstLevel()
     {
         SceneManager.LoadScene("Game Scene");
+        FindObjectOfType<MusicPlayer>().Play();
     }
 
     public void LoadGameOver()
     {
         SceneManager.LoadScene("Game Over");
+        FindObjectOfType<MusicPlayer>().Stop();
     }
 }
