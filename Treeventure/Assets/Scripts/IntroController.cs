@@ -47,9 +47,15 @@ public class IntroController : MonoBehaviour
                 StartCoroutine(Step1SecondPart(1.5f));
                 break;
             case 2:
+                button.transform.position = button.transform.position + new Vector3(-300, 60, 0);
+                button.transform.localScale = new Vector3(-1, 1, 1);
+                buttonText.transform.localScale = new Vector3(-1, 1, 1);
                 buttonText.text = texts[step];
                 break;
             case 3:
+                buttonText.text = texts[step];
+                break;
+            case 4:
                 FindObjectOfType<LevelController>().LoadFirstLevel();
                 break;
         }
@@ -74,7 +80,8 @@ public class IntroController : MonoBehaviour
         List<string> list = new List<string>();
         list.Add("Este año ha ido muy bien la venta en mi granja de árboles de Navidad, tengo que pensar cómo sacar más beneficio.");
         list.Add("¡¿Quién eres?!");
-        list.Add("Soy el fantasma de la ecología, he estado observando cómo utilizas prácticas que hieren al planeta, ¡y eso se va acabar! Voy a estar observándote y si sigues haciendo daño a la naturaleza, ¡te asustaré! Y puede que de alguno de esos sustos no te recuperes.");
+        list.Add("Soy el fantasma de la ecología, he estado observando cómo utilizas prácticas que hieren al planeta, ¡y eso se va acabar!");
+        list.Add("Voy a estar observándote y si sigues haciendo daño a la naturaleza, ¡te asustaré! Y puede que de alguno de esos sustos no te recuperes.");
         return list;
     }
 }

@@ -139,62 +139,62 @@ public class Trait
         {
             case Traits.butterfingers:
                 this.name = "Manazas";
-                this.description = "Aumenta el riesgo de que se produzcan accidentes en el trabajo";
+                this.description = "+20% probabilidad evento accidente laboral";
                 this.quality = Quality.bad;
                 break;
             case Traits.conflictive:
                 this.name = "Conflictivo";
-                this.description = "Puede causar problemas a sus compañeros";
+                this.description = "+25% probabilidad evento de conflicto";
                 this.quality = Quality.bad;
                 break;
             case Traits.cosmopolitan:
                 this.name = "Cosmopolita";
-                this.description = "No está acostumbrado al campo, pero se le da bien la gente";
+                this.description = "+10% evento publicitario";
                 this.quality = Quality.normal;
                 break;
             case Traits.ecoFriendly:
                 this.name = "Ecológico";
-                this.description = "Se preocupa por el medio ambiente";
+                this.description = "+5 eco cada turno";
                 this.quality = Quality.good;
                 break;
             case Traits.hardWorker:
                 this.name = "Trabajador";
-                this.description = "Trabaja duro y con eficacia";
+                this.description = "-10 coste de actividades, +5 eco al podar/quitar hierbas";
                 this.quality = Quality.good;
                 break;
             case Traits.lazy:
                 this.name = "Vago";
-                this.description = "Pierde el tiempo con frecuencia y su trabajo no es muy bueno";
+                this.description = "+10 coste de actividades, -5 eco";
                 this.quality = Quality.bad;
                 break;
             case Traits.optimist:
                 this.name = "Optimista";
-                this.description = "Siempre ve el lado bueno de todo";
+                this.description = "5 árboles reciben +1 punto";
                 this.quality = Quality.good;
                 break;
             case Traits.pessimist:
                 this.name = "Pesimista";
-                this.description = "No te lo lleves a una fiesta";
+                this.description = "3 árboles pierden -1 punto";
                 this.quality = Quality.normal;
                 break;
             case Traits.scary:
                 this.name = "Asustadizo";
-                this.description = "Hasta su sombra le produce horror";
+                this.description = "Con ecología <30, +10 coste y -3 ecología en actividades";
                 this.quality = Quality.normal;
                 break;
             case Traits.shy:
                 this.name = "Tímido";
-                this.description = "Prefiere trabajar en el campo a socializar y hacer equipo";
+                this.description = "-15% evento publicitario, +3 ecología en actividades";
                 this.quality = Quality.normal;
                 break;
             case Traits.teamPlayer:
                 this.name = "Buen compañero";
-                this.description = "Comprensivo y conciliador con sus compañeros";
+                this.description = "Evita el evento de conflicto";
                 this.quality = Quality.good;
                 break;
             case Traits.waster:
                 this.name = "Derrochador";
-                this.description = "Le encanta gastar y consumir, y no le importa el medio ambiente";
+                this.description = "-5 eco cada turno";
                 this.quality = Quality.bad;
                 break;
         }

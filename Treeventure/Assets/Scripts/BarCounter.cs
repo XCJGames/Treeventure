@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,50 @@ public class BarCounter : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         gameSystem = FindObjectOfType<GameSystem>();
         slider = GetComponent<Slider>();
         tooltip = GetComponent<ShowTooltip>();
+        StartValues();
+    }
+
+    private void StartValues()
+    {
+        if (type == CounterType.eco)
+        {
+            switch (PlayerPrefsController.GetDifficulty())
+            {
+                case 0:
+                    value = 55;
+                    break;
+                case 1:
+                    value = 50;
+                    break;
+                case 2:
+                    value = 45;
+                    break;
+                case 3:
+                    value = 40;
+                    break;
+            }
+        }
+        else
+        {
+            switch (PlayerPrefsController.GetDifficulty())
+            {
+                case 0:
+                    maxValue = 105000;
+                    break;
+                case 1:
+                    maxValue = 100000;
+                    break;
+                case 2:
+                    maxValue = 95000;
+                    break;
+                case 3:
+                    maxValue = 90000;
+                    break;
+            }
+            value = maxValue;
+            slider.maxValue = maxValue;
+        }
+        slider.value = value;
     }
 
     public int GetValue() => value;

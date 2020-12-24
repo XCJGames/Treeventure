@@ -73,47 +73,47 @@ public class EventController : MonoBehaviour
             switch ((GeneralEvents)e)
             {
                 case GeneralEvents.drought:
-                    SetEventData("¡Oh, no!", 
+                    SetEventData("Oh, no", 
                         "La ciudad está sufriendo una terrible sequía este mes, ¿qué piensas hacer?",
                         new string[] { "Reutilizar el agua la casa", "Ahorrar agua", "Comprar agua embotellada" });
                     break;
                 case GeneralEvents.racoonAttack:
-                    SetEventData("¡Recorcholis!",
+                    SetEventData("Recorcholis",
                         "Unos mapaches han entrado en la finca y están dañando los abetos, ¿qué vas a hacer?",
                         new string[] { "Poner trampas para mapaches", "Llamar a control de plagas", "Capturarlos y soltarlos en libertad" });
                     break;
                 case GeneralEvents.taylorNeedsBraces:
-                    SetEventData("¡Repampanos!",
+                    SetEventData("Repampanos",
                         "Tu hija Taylor necesita aparato y no es barato",
                         new string[] { "Contratar seguro dental, 1.000 €" });
                     break;
                 case GeneralEvents.bankCyberattacked:
-                    SetEventData("¡Maldicion!",
+                    SetEventData("Maldicion",
                         "Tu banco ha sufrido un ataque cibernético y has perdido dinero",
                         new string[] { "Has perdido 1.500 €" });
                     break;
                 case GeneralEvents.houseRepairs:
-                    SetEventData("¡Que mala suerte!",
+                    SetEventData("Que mala suerte",
                         "Te han salido unas humedades en casa y necesitas arreglarlas",
                         new string[] { "El albañil te cobra 500 €" });
                     break;
                 case GeneralEvents.deluge:
-                    SetEventData("¡Rayos y centellas!",
+                    SetEventData("Rayos y centellas",
                         "Ha caído un gran diluvio y el terreno está empantanado, ¿cómo actúas?",
                         new string[] { "Achicar el agua con máquinas", "Achicar el agua con herramientas manuales", "Reciclar el agua" });
                     break;
                 case GeneralEvents.fires:
-                    SetEventData("¡La cosa esta que arde!",
+                    SetEventData("La cosa esta que arde",
                         "Ha sucedido un incendio en tu terreno, ¿cómo vas a actuar?",
                         new string[] { "Usar cubos de agua", "Utilizar el agua de la boca de incendios ", "Reutilizar agua del regadío" });
                     break;
                 case GeneralEvents.townParty:
-                    SetEventData("¡Malditas fiestas del pueblo!",
+                    SetEventData("Malditas fiestas del pueblo",
                         "Algunos lugareños han entrado en tu finca y han destrozado cosas, ¿qué haces?",
                         new string[] { "Comprar todo de nuevo", "Comprar objetos de segunda mano", "Reciclar los materiales y arreglar los desperfectos" });
                     break;
                 case GeneralEvents.tornado:
-                    SetEventData("¡Cuanto viento!",
+                    SetEventData("Cuanto viento",
                         "Ha sucedido un tornado y ha dejado unos desperfectos, ¿qué quieres hacer?",
                         new string[] { "Comprar todo de nuevo", "Comprar objetos de segunda mano", "Reciclar los materiales y arreglar los desperfectos" });
                     break;
@@ -124,17 +124,17 @@ public class EventController : MonoBehaviour
             switch ((PlagueEvents)e)
             {
                 case PlagueEvents.insectPlague:
-                    SetEventData("¡Que desastre!",
+                    SetEventData("Que desastre",
                         "Tus abetos tienen pulgones y están estropeando sus cortezas",
                         new string[] { "Comprar pesticidas químicos", "Comprar pesticidas naturales", "Hacer repelente de insectos" });
                     break;
                 case PlagueEvents.mantisPlague:
-                    SetEventData("¡Vaya!",
+                    SetEventData("Vaya",
                         "Hay una plaga de mantis que están poniendo huevos en tus abetos, ¿qué vas a hacer?",
                         new string[] { "Comprar pesticidas químicos", "Comprar pesticidas naturales", "Hacer repelente de insectos" });
                     break;
                 case PlagueEvents.scarabPlague:
-                    SetEventData("¡No puede ser!",
+                    SetEventData("No puede ser",
                         "Unos escarabajos han puesto larvas en tus abetos, ¿cómo actúas?",
                         new string[] { "Comprar pesticidas químicos", "Comprar pesticidas naturales", "Hacer repelente de insectos" });
                     break;
@@ -142,7 +142,7 @@ public class EventController : MonoBehaviour
         }
         else if(e == 12)
         {
-            SetEventData("¡Tu pericia ha surtido efecto!",
+            SetEventData("Tu pericia ha surtido efecto",
                 "Otro comercio ha visto tu publicidad y va a invertir en tu negocio.",
                 new string[] { "¡Genial! Consigues 3.000 €" });
         }
@@ -151,27 +151,27 @@ public class EventController : MonoBehaviour
             switch ((EmployeeEvents)e)
             {
                 case EmployeeEvents.employeesClaimPayrise:
-                    SetEventData("¡Oh, vaya!",
+                    SetEventData("Oh, vaya",
                         "Tus empleados no están de acuerdo con su sueldo y han iniciado una huelga. Vas a tener que subirles el sueldo.",
                         new string[] { "El salario base de tus empleados sube un 10%" });
                     break;
                 case EmployeeEvents.babyIncoming:
-                    SetEventData("¡Bebe en camino!",
+                    SetEventData("Bebe en camino",
                         "Un empleado se ha dado de baja por paternidad/maternidad y no contarás con sus servicios este mes",
                         new string[] { "¡La cigüeña va a tener trabajo!" });
                     break;
                 case EmployeeEvents.sickEmployee:
-                    SetEventData("¡Que malito estoy!",
+                    SetEventData("Que malito estoy",
                         "Uno de tus empleados ha cogido la gripe y tardará un mes en recuperarse",
                         new string[] { "Espero que se recupere pronto" });
                     break;
                 case EmployeeEvents.brokenTools:
-                    SetEventData("¡Que desastre!",
+                    SetEventData("Que desastre",
                         "Tu empleado manazas ha roto algunas herramientas que debes reponer",
                         new string[] { "Pierdes 500 € y 5 puntos de Eco" });
                     break;
                 case EmployeeEvents.employeesConflict:
-                    SetEventData("¡Maldita sea!",
+                    SetEventData("Maldita sea",
                         "Uno de tus empleados está siendo conflictivo, ¿cómo actúas?",
                         new string[] { "Les das una paga extra para que se lleven mejor", "Despides al empleado conflictivo", "Despides al otro empleado" });
                     break;
@@ -183,25 +183,25 @@ public class EventController : MonoBehaviour
             {
                 case LowResourceEvents.lowMoneyLoan:
                     lowMoneyEvent = true;
-                    SetEventData("¡Vaya!",
+                    SetEventData("Vaya",
                         "Estás muy ajustado de dinero, puedes pedir dinero prestado",
                         new string[] { "Consigues 10.000 €" });
                     break;
                 case LowResourceEvents.lowMoneyLottery:
                     lowMoneyEvent = true;
-                    SetEventData("¡Que suerte!",
+                    SetEventData("Que suerte",
                         "Acabas de ganar la lotería",
                         new string[] { "Consigues 10.000 €" });
                     break;
                 case LowResourceEvents.lowEcoONG:
                     lowEcoEvent = true;
-                    SetEventData("¡No, por favor!",
+                    SetEventData("No, por favor",
                         "El fantasma está muy enfadado, puedes donar a una ONG ecológica para saciar su sed de darte sustos",
                         new string[] { "Por solo 500 €, recuperas 20 puntos de Eco" });
                     break;
                 case LowResourceEvents.lowEcoDog:
                     lowEcoEvent = true;
-                    SetEventData("¡Que miedo!",
+                    SetEventData("Que miedo",
                         "El fantasma está muy enfadado, puedes adoptar un perro de la perrera para saciar su sed de darte sustos",
                         new string[] { "¡Buen chico! Recuperas 20 puntos de Eco" });
                     break;

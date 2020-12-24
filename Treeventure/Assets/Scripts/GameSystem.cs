@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class GameSystem : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField] EventController eventController;
 
+    [SerializeField] TutorialController tutorialController;
+
     [SerializeField] Image winWindow;
     [SerializeField] TextMeshProUGUI scoreText;
 
@@ -26,6 +29,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] bool cheatMode = false;
 
     [SerializeField] AudioClip winSound;
+
     [SerializeField] AudioClip eventSound;
 
     private int conflictEventPercentage;
@@ -34,6 +38,7 @@ public class GameSystem : MonoBehaviour
     private int rerollPlagueEvent;
 
     private bool gameOver = false;
+    private bool skipTutorial = false;
 
     private void Start()
     {
@@ -203,12 +208,10 @@ public class GameSystem : MonoBehaviour
 
         if (traits.Contains(Trait.Traits.teamPlayer))
         {
-            Debug.Log("team player");
             conflictEventPercentage = -1;
         }
         else if(traits.Contains(Trait.Traits.conflictive) && conflictEventPercentage != -1)
         {
-            Debug.Log("conflict emp");
             conflictEventPercentage += 25;
         }
         if (traits.Contains(Trait.Traits.ecoFriendly))
@@ -223,6 +226,20 @@ public class GameSystem : MonoBehaviour
         {
             brokenMaterialsPercentage += 20;
         }
+        if (traits.Contains(Trait.Traits.optimist))
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                trees[Random.Range(0, trees.Count)].Score += 1;
+            }
+        }
+        else if (traits.Contains(Trait.Traits.pessimist))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                trees[Random.Range(0, trees.Count)].Score -= 1;
+            }
+        }
     }
 
     private void TrimWeedCalculations(ref int ecoModifier, ref int moneyModifier, List<Trait.Traits> traits, bool eco)
@@ -236,10 +253,12 @@ public class GameSystem : MonoBehaviour
         if (traits.Contains(Trait.Traits.hardWorker))
         {
             moneyModifier += 10;
+            ecoModifier += 5;
         }
         else if (traits.Contains(Trait.Traits.lazy))
         {
             moneyModifier -= 10;
+            ecoModifier -= 5;
         }
         if (traits.Contains(Trait.Traits.scary) && ecoSlider.GetValue() < 30)
         {
@@ -274,9 +293,7 @@ public class GameSystem : MonoBehaviour
 
     private void AdsCalculations(ref int ecoModifier, ref int moneyModifier, List<Trait.Traits> traits, bool eco)
     {
-        Debug.Log(ecoModifier);
         ecoModifier +=  eco ? -5 : -10;
-        Debug.Log(ecoModifier);
         moneyModifier += eco ? -200 : -100;
         adsEventPercentage += 20;
 
@@ -399,6 +416,10 @@ public class GameSystem : MonoBehaviour
             gameOver = true;
             GameOver();
         }
+    }
+    internal void SkipTutorial()
+    {
+        skipTutorial = true;
     }
     private void Win()
     {

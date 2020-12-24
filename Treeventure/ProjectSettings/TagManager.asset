@@ -42,3 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Tutorial Canvas
+    uniqueID: 423150933
+    locked: 0

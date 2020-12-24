@@ -9,8 +9,8 @@ public class PlayerPrefsController : MonoBehaviour
 
     const float MIN_VOLUME = 0f;
     const float MAX_VOLUME = 1f;
-    const float MIN_DIFFICULTY = -2f;
-    const float MAX_DIFFICULTY = 2f;
+    const float MIN_DIFFICULTY = 0f;
+    const float MAX_DIFFICULTY = 3f;
 
     public static bool CheckIfPrefsExist()
     {

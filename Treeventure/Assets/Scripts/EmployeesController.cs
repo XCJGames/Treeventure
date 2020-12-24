@@ -9,6 +9,9 @@ using Random = UnityEngine.Random;
 public class EmployeesController : MonoBehaviour
 {
     [SerializeField] List<EmployeeStats> employees;
+    [SerializeField] List<Image> infoWindows;
+
+    int infoStep;
 
     private Animator animator;
     private bool isShowing;
@@ -16,6 +19,7 @@ public class EmployeesController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         isShowing = true;
+        infoStep = 0;
     }
 
     public void ToggleEmployeesTabVisibility()
@@ -142,5 +146,28 @@ public class EmployeesController : MonoBehaviour
                 employee.GetComponentInChildren<TMP_Dropdown>().interactable = true;
             }
         }
+    }
+
+    public void ShowInfoWindow()
+    {
+        infoStep = 0;
+        infoWindows[infoStep].gameObject.SetActive(true);
+    }
+    public void CloseInfoWindow()
+    {
+        infoWindows[infoStep].gameObject.SetActive(false);
+    }
+    public void NextInfoWindow()
+    {
+        infoWindows[infoStep].gameObject.SetActive(false);
+        if(infoStep + 1 < infoWindows.Count)
+        {
+            infoStep++;
+        }
+        else
+        {
+            infoStep = 0;
+        }
+        infoWindows[infoStep].gameObject.SetActive(true);
     }
 }
